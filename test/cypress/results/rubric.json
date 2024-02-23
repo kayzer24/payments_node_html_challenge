@@ -1,0 +1,995 @@
+{
+  "items": {
+    "1.3": {
+      "id": "1.3",
+      "rowId": 1,
+      "title": "Checkout Basic Setup visits page /concerts by url",
+      "learner_prompt": "Maintain all of the site's existing pages and navigation.",
+      "helptext": "Make sure you can reach the concerts page directly from the /concerts URL.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "1.4.1": {
+      "id": "1.4.1",
+      "rowId": 2,
+      "title": "Checkout Basic Setup visits page /concerts by Navbar",
+      "learner_prompt": "Maintain all of the site's existing pages and navigation.",
+      "helptext": "Make sure you can reach the concerts page from the navbar.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "1.4.2": {
+      "id": "1.4.2",
+      "rowId": 3,
+      "title": "Checkout Basic Setup visits page /concerts by clicking button",
+      "learner_prompt": "Maintain all of the site's existing pages and navigation.",
+      "helptext": "Make sure you can access the concerts page by clicking the button.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "1.5": {
+      "id": "1.5",
+      "rowId": 4,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "1.6.1": {
+      "id": "1.6.1",
+      "rowId": 5,
+      "title": "Checkout Basic Setup Adds 2 tickets (3 total)",
+      "learner_prompt": "When the buyer selects a number of tickets from the Concerts page, their Checkout Session should reflect the same number of tickets.",
+      "helptext": "Double-check that the values getting set in the Concerts UI are being passed to the Checkout Session.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "1.6.2": {
+      "id": "1.6.2",
+      "rowId": 6,
+      "title": "Renders Stripe Checkout successfully - Total and Currency Check",
+      "learner_prompt": "Use the config file to set ticket pricing.",
+      "helptext": "Make sure you are pulling your currency and amount from the config file.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "1.6.3": {
+      "id": "1.6.3",
+      "rowId": 7,
+      "title": "Renders Stripe Checkout Product successfully - Product Name and Image check",
+      "learner_prompt": "Use the config file to set the concert's name and product image.",
+      "helptext": "Make sure you are pulling your product name and image link from the config file.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "1.7": {
+      "id": "1.7",
+      "rowId": 8,
+      "title": "Renders Stripe Checkout successfully - Card Payment Method Check",
+      "learner_prompt": "For this challenge, the merchant only wants to accept credit cards.",
+      "helptext": "Make sure cards are the only valid purchase method.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "1.8": {
+      "id": "1.8",
+      "rowId": 9,
+      "title": "Renders Stripe Checkout successfully - Cancel and Success Url Check",
+      "learner_prompt": "Redirect successful checkouts to concert-success.html.",
+      "helptext": "Check if successful checkouts are being redirected to a new page.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "1.9": {
+      "id": "1.9",
+      "rowId": 10,
+      "title": "Renders Stripe Checkout successfully - Payment Intent Metadata Check",
+      "learner_prompt": "A webhook of a successful checkout should be caught to update the metadata with the number of concert tickets purchased.",
+      "helptext": "Check if metadata is being set for the checkout and a webhook endpoint exists.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "1.10": {
+      "id": "1.10",
+      "rowId": 11,
+      "title": "Renders Stripe Checkout successfully - Cancel and Success Url Check",
+      "learner_prompt": "Canceling the checkout should return to /concerts.",
+      "helptext": "Check if the back button is working in the Stripe checkout page.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.1": {
+      "id": "2.1",
+      "rowId": 12,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.2": {
+      "id": "2.2",
+      "rowId": 13,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.3": {
+      "id": "2.3",
+      "rowId": 14,
+      "title": "Checkout Basic Setup visits page /videos by url",
+      "learner_prompt": "Maintain all of the site's existing pages and navigation.",
+      "helptext": "Make sure you can reach the concerts page directly from the /videos URL.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.4.1": {
+      "id": "2.4.1",
+      "rowId": 15,
+      "title": "Checkout Basic Setup visits page /videos by Navbar",
+      "learner_prompt": "Maintain all of the site's existing pages and navigation.",
+      "helptext": "Make sure you can reach the videos page from the navbar.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.4.2": {
+      "id": "2.4.2",
+      "rowId": 16,
+      "title": "Checkout Basic Setup visits page /videos by clicking button",
+      "learner_prompt": "Maintain all of the site's existing pages and navigation.",
+      "helptext": "Make sure you can access the videos page by clicking the button.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.5": {
+      "id": "2.5",
+      "rowId": 17,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.6": {
+      "id": "2.6",
+      "rowId": 18,
+      "title": "Check Stripe Js is loaded",
+      "learner_prompt": "Load Stripe.js.",
+      "helptext": "Make sure Stripe.js is loading on the video lessons page.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.7": {
+      "id": "2.7",
+      "rowId": 19,
+      "title": "Check Stripe Elements are loaded",
+      "learner_prompt": "Render the card information form.",
+      "helptext": "Make sure Elements is implemented correctly.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.8": {
+      "id": "2.8",
+      "rowId": 20,
+      "title": "Add Single Item to Cart Enables Payment form",
+      "learner_prompt": "When a customer selects an item, open the payment form.",
+      "helptext": "Make sure the pay button is shown when the cart is populated.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.9": {
+      "id": "2.9",
+      "rowId": 21,
+      "title": "Add Multiple Items to Cart Enables Payment form",
+      "learner_prompt": "When a customer chooses multiple items, the payment form reflects these changes.",
+      "helptext": "Make sure multiple items can be added to the checkout form.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.10": {
+      "id": "2.10",
+      "rowId": 22,
+      "title": "Add / Remove Multiple Items to Cart Check Payment form",
+      "learner_prompt": "When a customer removes items, the payment form reflects these changes.",
+      "helptext": "Make sure items can be added and removed from the checkout form.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.11": {
+      "id": "2.11",
+      "rowId": 23,
+      "title": "Check Payment Form Fields",
+      "learner_prompt": "The customer can add payment details.",
+      "helptext": "Make sure payment info can be added to the form.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.12": {
+      "id": "2.12",
+      "rowId": 24,
+      "title": "Check Name and Email fields are required for Payment",
+      "learner_prompt": "The customer is required to add a name and email to their order.",
+      "helptext": "Make sure name and email are required fields.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.13": {
+      "id": "2.13",
+      "rowId": 25,
+      "title": "Check Payment button is disabled during the Payment call",
+      "learner_prompt": "The customer can't submit the form while it's processing.",
+      "helptext": "Make sure the pay button cannot be pressed during a call to the server.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.14": {
+      "id": "2.14",
+      "rowId": 26,
+      "title": "",
+      "learner_prompt": "The customer can't submit the form while it's processing.",
+      "helptext": "Make sure a spinner is displayed to the customer after submitting payment details.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.15": {
+      "id": "2.15",
+      "rowId": 27,
+      "title": "Check Normal Payment is Successful",
+      "learner_prompt": "A normal test card can be used to check out.",
+      "helptext": "Make sure a non-3DS card can be used to pay with.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.16": {
+      "id": "2.16",
+      "rowId": 28,
+      "title": "Check 3DS Payment is Successful",
+      "learner_prompt": "A 3DS test card can be used to check out.",
+      "helptext": "Make sure a 3DS card can be used to pay with.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.17": {
+      "id": "2.17",
+      "rowId": 28,
+      "title": "Check Unsuccessful Payment",
+      "learner_prompt": "If the card is declined, show the customer the error.",
+      "helptext": "Make sure the payment failure error is shown to the customer.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.18": {
+      "id": "2.18",
+      "rowId": 29,
+      "title": "Check 3DS Payment is Unsuccessful",
+      "learner_prompt": "If the 3DS card is declined, show the customer the error.",
+      "helptext": "Make sure the 3DS payment failure error is shown to the customer.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.19": {
+      "id": "2.19",
+      "rowId": 30,
+      "title": "Should allow Customer to update Order after Decline",
+      "learner_prompt": "If the customer's payment method fails, they are still able to edit their order.",
+      "helptext": "Make sure a customer can update their order after a card decline.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.20": {
+      "id": "2.20",
+      "rowId": 31,
+      "title": "Should use Original Payment Intent upon Order Failure and subsequent Cart Update",
+      "learner_prompt": "One payment intent is used per customer, regardless of a failed payment event.",
+      "helptext": "Make sure the failed payment intent is used for the subsequent successful payment for the same customer.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.21": {
+      "id": "2.21",
+      "rowId": 32,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.22": {
+      "id": "2.22",
+      "rowId": 33,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.23": {
+      "id": "2.23",
+      "rowId": 34,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.24": {
+      "id": "2.24",
+      "rowId": 35,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.25": {
+      "id": "2.25",
+      "rowId": 36,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.26": {
+      "id": "2.26",
+      "rowId": 37,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.27": {
+      "id": "2.27",
+      "rowId": 38,
+      "title": "Should make the Payments in USD",
+      "learner_prompt": "Payments should be made in USD.",
+      "helptext": "Check the payment intent's currency field.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.28": {
+      "id": "2.28",
+      "rowId": 39,
+      "title": "Should include Video IDs in the metadata",
+      "learner_prompt": "Video IDs should be added to the payment intent's metadata.",
+      "helptext": "Check the metadata of the payment intent.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.29": {
+      "id": "2.29",
+      "rowId": 40,
+      "title": "Should include Video IDs in the Statement Descriptor",
+      "learner_prompt": "Video IDs should be added to the payment intent's statement descriptor.",
+      "helptext": "Check the statement descriptor of the payment intent.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "2.30": {
+      "id": "2.30",
+      "rowId": 41,
+      "title": "Should set the payment_intent.receipt_email with the Correct Email ID",
+      "learner_prompt": "A payment receipt is sent to the test customer's email.",
+      "helptext": "Check the payment intent's 'receipt_email' field.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.0": {
+      "id": "3.0",
+      "rowId": 42,
+      "title": "Should not find any Invalid/Hardcoded PubKey in the BeforeAll Hook Check",
+      "learner_prompt": "Your integration must work with our Stripe account. When we replace the `code/server/.env` file, both the client and server must use those new API keys.",
+      "helptext": "Make sure your client is fetching the publishable key from the server. You can find some examples of this via stripe-samples ([client](https://github.com/stripe-samples/accept-a-payment/blob/main/custom-payment-flow/client/react-cra/src/index.js#L8), [server](https://github.com/stripe-samples/accept-a-payment/blob/main/custom-payment-flow/server/node/server.js#L38)).",      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.2": {
+      "id": "3.2",
+      "rowId": 43,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.3": {
+      "id": "3.3",
+      "rowId": 44,
+      "title": "Should Load Lesson Courses Page from Main Page",
+      "learner_prompt": "Maintain all of the site's existing pages and navigation.",
+      "helptext": "Make sure you can reach the lessons page.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.4": {
+      "id": "3.4",
+      "rowId": 45,
+      "title": "Should Load Lesson Courses Page via URL",
+      "learner_prompt": "Maintain all of the site's existing pages and navigation.",
+      "helptext": "Make sure you can reach the lessons page directly from the /lessons URL.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.5": {
+      "id": "3.5",
+      "rowId": 46,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.6": {
+      "id": "3.6",
+      "rowId": 47,
+      "title": "Should load Sripe JS",
+      "learner_prompt": "Stripe.js loads.",
+      "helptext": "Make sure Stripe.js loads on the lesson page.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.7": {
+      "id": "3.7",
+      "rowId": 48,
+      "title": "Should load Sripe Elements",
+      "learner_prompt": "Render the card information form.",
+      "helptext": "Make sure Elements is implemented correctly.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.8": {
+      "id": "3.8",
+      "rowId": 49,
+      "title": "",
+      "learner_prompt": "Render the card information form.",
+      "helptext": "Make sure the payment form is shown after selecting a lesson time.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.9": {
+      "id": "3.9",
+      "rowId": 50,
+      "title": "Should allow user to change Lesson Time after Elements is shown",
+      "learner_prompt": "A customer can change lesson times after the payment form is shown.",
+      "helptext": "Check if the customer can change lessons times after the payment form is shown.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.10": {
+      "id": "3.10",
+      "rowId": 51,
+      "title": "Should collect necessary Inputs from User",
+      "learner_prompt": "The payment form should take the customer's payment details.",
+      "helptext": "Check if field inputs are being collected.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.11": {
+      "id": "3.11",
+      "rowId": 52,
+      "title": "Should have Email and Name as Mandatory Fields",
+      "learner_prompt": "The customer needs to supply their name and email to the form.",
+      "helptext": "Check if name and email are required fields.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.12": {
+      "id": "3.12",
+      "rowId": 53,
+      "title": "Should disable the Request Lesson Button while Payment Intents are created/used",
+      "learner_prompt": "The 'Request Lesson' button cannot be clicked while processing.",
+      "helptext": "Check if the 'Request Lesson' button is disabled while a payment is processing.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.13": {
+      "id": "3.13",
+      "rowId": 54,
+      "title": "Should disable the Request Lesson Button and show Spinner while Confirming Card Payment",
+      "learner_prompt": "The button should display a Spinner while processing.",
+      "helptext": "Check if a Spinner is shown on the button during payment processing.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.21": {
+      "id": "3.21",
+      "rowId": 55,
+      "title": "Should schedule a Lesson using a non 3DS Card",
+      "learner_prompt": "A normal test card can be used to check out.",
+      "helptext": "Make sure lessons can be purchased with a regular test card.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.22": {
+      "id": "3.22",
+      "rowId": 56,
+      "title": "Should schedule a Lesson using a 3DS Card",
+      "learner_prompt": "A 3DS test card can be used to check out.",
+      "helptext": "Make sure lessons can be purchased with a 3DS test card.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.23": {
+      "id": "3.23",
+      "rowId": 57,
+      "title": "Should show Last 4 Card Digits after Successful Payment",
+      "learner_prompt": "After confirmation, a Success message should be shown the customer with their last 4 digits of the card they used.",
+      "helptext": "Make sure the last 4 digits of the card is shown in the Success message after the lesson is confirmed.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.24": {
+      "id": "3.24",
+      "rowId": 58,
+      "title": "Should not allow Customer to use same Email Twice for Lesson Registration",
+      "learner_prompt": "The same customer can't schedule multiple lessons.",
+      "helptext": "Make sure a customer with the same email can't schedule multiple lessons.  We test this by immediately trying to schedule another lesson with the same email.  Use the immediately consistent List API rather the eventually consistent Search API for read-after-write workflows like this one.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.25": {
+      "id": "3.25",
+      "rowId": 59,
+      "title": "Should Display Card Declined Error Message when Invalid Card is used",
+      "learner_prompt": "If the card is declined, show the customer the error.",
+      "helptext": "Make sure an error message is shown if the test card is declined.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.26": {
+      "id": "3.26",
+      "rowId": 60,
+      "title": "Should Display Card Declined Error Message when Invalid 3DS Card is used",
+      "learner_prompt": "If the 3DS card is declined, show the customer the error.",
+      "helptext": "Make sure an error message is shown if the 3DS test card is declined.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.27": {
+      "id": "3.27",
+      "rowId": 61,
+      "title": "Should allow Customer to Successfully Update and Make a Payment after Card Decline",
+      "learner_prompt": "A customer can pay with another card if a previous one is declined.",
+      "helptext": "Make sure customers can use another card if a previous one is declined.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.28": {
+      "id": "3.28",
+      "rowId": 62,
+      "title": "Should attach only one Payment Method per Customer",
+      "learner_prompt": "A customer can only have one payment method.",
+      "helptext": "Make sure the customer's payment method is being attached to them.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.29": {
+      "id": "3.29",
+      "rowId": 63,
+      "title": "Should set Name and Email on both the Customer and the Payment Method Objects",
+      "learner_prompt": "The customer's name and email should be added to the customer and payment method objects.",
+      "helptext": "Make sure the customer's name and email are being set on both the Customer and Payment Method objects.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "3.30": {
+      "id": "3.30",
+      "rowId": 64,
+      "title": "Should add the Metadata about the First Lesson to the Customer Object",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.1.1": {
+      "id": "4.1.1",
+      "rowId": 65,
+      "title": "Should Accept Customer, Amount, and Description as its Input Parameters",
+      "learner_prompt": "The schedule-lesson route should accept: customer, amount, and description parameters.",
+      "helptext": "Make sure the parameters are correct.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.1.2": {
+      "id": "4.1.2",
+      "rowId": 66,
+      "title": "Should Create a Payment Intent",
+      "learner_prompt": "The schedule-lesson route should create a payement intent.",
+      "helptext": "A payment intent should be created from this route https://stripe.com/docs/api/payment_intents/create",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.1.3": {
+      "id": "4.1.3",
+      "rowId": 67,
+      "title": "Should Return a Payment Intent Object upon Succesful Scheduling of a Lesson",
+      "learner_prompt": "The schedule-lesson route should return a payment intent when successful.",
+      "helptext": "Make sure a payment intent is returned for a successful schedule.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.1.4": {
+      "id": "4.1.4",
+      "rowId": 68,
+      "title": "Should Return an Error when using an Invalid Customer ID",
+      "learner_prompt": "The schedule-lesson should return an error if the customer isn't found.",
+      "helptext": "Make sure to catch the error if the customer doesn't exist.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.1.5": {
+      "id": "4.1.5",
+      "rowId": 69,
+      "title": "Should Create Payment Intents in USD",
+      "learner_prompt": "The payment intent currency should be USD.",
+      "helptext": "Make sure the payment intent is created in USD.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.1.6": {
+      "id": "4.1.6",
+      "rowId": 70,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.1.7": {
+      "id": "4.1.7",
+      "rowId": 71,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.1.8": {
+      "id": "4.1.8",
+      "rowId": 72,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.2.1": {
+      "id": "4.2.1",
+      "rowId": 73,
+      "title": "Should Accept Payment Intent ID and an Optional Amount as Input Parameters",
+      "learner_prompt": "Th complete-lesson-payment should take a payment intent ID and an optional amount as parameters.",
+      "helptext": "Make sure the parameters are correct.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.2.2": {
+      "id": "4.2.2",
+      "rowId": 74,
+      "title": "Should Capture and Confirm the Payment Intent",
+      "learner_prompt": "The complete-lesson-payment route should capture the payment intent.",
+      "helptext": "Make sure the payment intent is captured https://stripe.com/docs/api/payment_intents/capture",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.2.3": {
+      "id": "4.2.3",
+      "rowId": 75,
+      "title": "Should Return a Payment Intent Object upon Succesful Payment Capture",
+      "learner_prompt": "The payment intent object should be returned upon successful capture.",
+      "helptext": "Make sure a payment intent is returned if the capture was successful.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.2.4": {
+      "id": "4.2.4",
+      "rowId": 76,
+      "title": "Should Return an Error when using Invalid Paramaters",
+      "learner_prompt": "Errors should be caught and returned.",
+      "helptext": "Make sure errors are handled correctly.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.3.1": {
+      "id": "4.3.1",
+      "rowId": 77,
+      "title": "Should Accept Payment Intent ID and an Amount as Input Parameters",
+      "learner_prompt": "The refund-lesson route should take the Payment Intent ID and an amount as parameters.",
+      "helptext": "Make sure the parameters are correct.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.3.2": {
+      "id": "4.3.2",
+      "rowId": 78,
+      "title": "Should Refund the Customer for the Lesson Amount",
+      "learner_prompt": "The refund-lesson route should refund the customer for a specific amount.",
+      "helptext": "Make sure a refund is created for the customer https://stripe.com/docs/api/refunds/create",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.3.3": {
+      "id": "4.3.3",
+      "rowId": 79,
+      "title": "Should Return a Refund Object ID if the Refund was Successful",
+      "learner_prompt": "The refund-lesson route should return the refund ID if it's successful.",
+      "helptext": "Make sure a refund ID is returned if the refund was successful.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.3.4": {
+      "id": "4.3.4",
+      "rowId": 80,
+      "title": "Should Return an Error when using Invalid Paramaters",
+      "learner_prompt": "Errors should be caught and returned.",
+      "helptext": "Make sure errors are handled correctly.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.4.1": {
+      "id": "4.4.1",
+      "rowId": 81,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.4.2": {
+      "id": "4.4.2",
+      "rowId": 82,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "4.4.3": {
+      "id": "4.4.3",
+      "rowId": 83,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "5.1.1": {
+      "id": "5.1.1",
+      "rowId": 84,
+      "title": "Should load the Account Update Page and Display the details",
+      "learner_prompt": "Maintain all of the site's existing pages and navigation.",
+      "helptext": "Make sure you can reach the Account Update Page page.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "5.1.2": {
+      "id": "5.1.2",
+      "rowId": 85,
+      "title": "",
+      "learner_prompt": "",
+      "helptext": "",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "5.1.3": {
+      "id": "5.1.3",
+      "rowId": 86,
+      "title": "Should allow Customer to Update Card Data without filling Name and EmailId",
+      "learner_prompt": "The customer can update their payment method and the updated details will be displayed.",
+      "helptext": "Make sure the customer can update their payment details.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "5.1.4": {
+      "id": "5.1.4",
+      "rowId": 87,
+      "title": "Should not allow usage of existing Customer Email ID while Updating Account Info",
+      "learner_prompt": "The customer can't change their email to one that's already taken.",
+      "helptext": "Make sure an error is shown if the customer tries to change their email to one that's already taken.  We test this by immediately trying to reuse an email.  Use the immediately consistent List API rather the eventually consistent Search API for read-after-write workflows like this one.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "5.1.5": {
+      "id": "5.1.5",
+      "rowId": 88,
+      "title": "Should attach new Payment Method and Delete old one after Card Update",
+      "learner_prompt": "If a customer updates their payment method, their old payment method should be detached.",
+      "helptext": "Make sure customers only have one one payment method.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "5.1.6": {
+      "id": "5.1.6",
+      "rowId": 89,
+      "title": "Should show Error Message if Invalid Card is used while Updating Account Info",
+      "learner_prompt": "If the card is declined, show the customer the error.",
+      "helptext": "Make sure an error is shown correctly if the test card is declined.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "5.1.7": {
+      "id": "5.1.7",
+      "rowId": 90,
+      "title": "Should show Error Message if Invalid 3DS Card is used while Updating Account Info",
+      "learner_prompt": "If the 3DS card is declined, show the customer the error.",
+      "helptext": "Make sure an error is shown correctly if the 3DS test card is declined.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "5.1.8": {
+      "id": "5.1.8",
+      "rowId": 91,
+      "title": "Should allow Customer to Successfully Update Payment after Card Decline",
+      "learner_prompt": "If the customer's card is declined, they may update it.",
+      "helptext": "Make sure a declined card won't save to the customer's account.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "5.2.1": {
+      "id": "5.2.1",
+      "rowId": 92,
+      "title": "Should Delete Customers with Captured Payments",
+      "learner_prompt": "A customer should be able to be deleted.",
+      "helptext": "Make sure customers can be deleted.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "5.2.2": {
+      "id": "5.2.2",
+      "rowId": 93,
+      "title": "Should not Delete Customers with Uncaptured Payments",
+      "learner_prompt": "A customer with existing, uncaptured payments cannot be deleted.",
+      "helptext": "Make sure customers with uncaptured payments can't be deleted.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "5.2.3": {
+      "id": "5.2.3",
+      "rowId": 94,
+      "title": "Should list Uncaptured Payments when Deleting Customers with Uncaptured Payments",
+      "learner_prompt": "A list of uncaptured payments is returned when trying to delete a customer with uncaptured payments.",
+      "helptext": "Make sure a list of uncaptured payments is returned if trying to delete a customer with uncaptured payments.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "6.1.1": {
+      "id": "6.1.1",
+      "rowId": 95,
+      "title": "Should Exist",
+      "learner_prompt": "The calculate-lesson-total route exists.",
+      "helptext": "Make sure the calculate-lesson-total is defined in server.js.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "6.1.2": {
+      "id": "6.1.2",
+      "rowId": 96,
+      "title": "Should Return the Payment Total, Fee Total and Net Total Values",
+      "learner_prompt": "The calculate-lesson-total should return the payment total, fee total, and net total values.",
+      "helptext": "[Expand](https://stripe.com/docs/api/expanding_objects) the 'balance_transaction' object from the charges to determine totals and fees.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "6.2.1": {
+      "id": "6.2.1",
+      "rowId": 97,
+      "title": "Should Exist",
+      "learner_prompt": "The find-customers-with-failed-payments route should return a list of customers with failed payments.",
+      "helptext": "Check the status of each charge and make a list of unsuccessful ones. From that, get each charge's customer object.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    },
+    "6.2.2": {
+      "id": "6.2.2",
+      "rowId": 98,
+      "title": "Should Return the Payment Total, Fee Total and Net Total Values",
+      "learner_prompt": "The find-customers-with-failed-payments route should also return customers with invalid payment methods.",
+      "helptext": "Check that the payment method is valid for each customer.",
+      "graded_assertion": "",
+      "err": {},
+      "Status": ""
+    }
+  },
+  "labName": "Payments Challenge",
+  "sequences": ["lessons_courses.js", "lessons_payment_capture.js", "lessons_account_management.js", "lessons_reporting.js"]
+}

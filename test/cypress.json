@@ -1,0 +1,15 @@
+{
+  "chromeWebSecurity": false,
+  "baseUrl": "http://localhost:3000",
+  "video" : false,
+  "screenshotsFolder": "cypress/results/screenshots",
+  "reporter": "mochawesome",
+  "reporterOptions": {
+    "reportDir": "cypress/results",
+    "reportFilename" : "stripechallengetestreport-individual",
+    "overwrite": false,
+    "html": false,
+    "reportTitle": "Stripe Developer Challenge",
+    "json": true
+  }
+}

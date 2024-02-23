@@ -1,0 +1,8 @@
+{
+"video_discount_factor": ".2",
+"video_min_items_for_discount": 2,
+"checkout_base_price":2000,
+"checkout_currency":"usd",
+"checkout_event_name":"Spring Academy Concert",
+"checkout_image":"https://d37ugbyn3rpeym.cloudfront.net/partner-program/edu/kidvert.jpeg"
+}

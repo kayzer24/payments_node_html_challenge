@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title data-i18n="title"></title>
+  <meta name="description" content="A Special Music Shop Academy Production" />
+
+  <!-- <link rel="icon" href="favicon.ico" type="image/x-icon" /> -->
+  <link rel="stylesheet" href="/assets/css/normalize.css" />
+  <link rel="stylesheet" href="/assets/css/checkout.css" />
+  <script src="/assets/js/checkout.js" defer></script>
+  <!-- Load translation files and libraries. -->
+  <script src="https://unpkg.com/i18next/i18next.js"></script>
+  <script src="https://unpkg.com/i18next-xhr-backend/i18nextXHRBackend.js"></script>
+  <script src="https://unpkg.com/i18next-browser-languagedetector/i18nextBrowserLanguageDetector.js"></script>
+  <script src="/assets/js/translation.js" defer></script>
+</head>
+
+<body>
+  <ul class="eco-navigation">
+      <li style="margin-top: auto; margin-bottom: auto; height: 38px;"><img src="/assets/img/store_logo.svg"></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/concert">Concert Tickets</a></li>
+      <li><a href="/videos">Video Courses</a></li>
+      <li><a href="/lessons">Lessons Courses</a></li>
+  </ul>
+
+  <div class="sr-root">
+
+    <div class="lesson-form">
+
+      <!-- <header class="sr-header">
+          <div class="sr-header__logo"></div>
+        </header> -->
+      <section class="concert-container">
+        <div>
+          <div class="p-image">
+            <img src="/assets/img/gig.png" width="456" height="198" />
+          </div>
+          <p>
+            <div id="headline" data-i18n="headline"></div>
+            <div id="concert-date" data-i18n="date"></div>
+          </p>
+          <p id="concert-dsc" data-i18n="subline"></p>
+        </div>
+        <div class="concert-tickets">
+          <div>
+            <div id="ticket-type" data-i18n="ticket-type"></div>
+            <div id="ticket-baseprice" data-i18n="ticket-baseprice"></div>
+          </div>
+          <div>
+            <div class="quantity-setter">
+              <button class="increment-btn" id="subtract" disabled>
+                -
+              </button>
+              <input type="number" id="quantity-input" min="1" value="1" />
+              <button class="increment-btn" id="add">+</button>
+            </div>
+          </div>
+        </div>
+
+        <button class="button" id="submit" data-i18n="button.submit" i18n-options="Buy for { " total": "0" }"></button>
+      </section>
+      <div id="error-message"></div>
+    </div>
+  </div>
+
+</body>
+
+</html>

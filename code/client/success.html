@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Townsend Street Music Shop</title>
+    <meta name="description" content="successful ticket purchase" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" href="assets/css/checkout.css" />
+  </head>
+
+  <body>
+    <ul class="eco-navigation">
+      <li><a href="/">Home</a></li>
+      <li><a href="/videos">Video Courses</a></li>
+      <li><a href="/concert">Concert Tickets</a></li>
+      <li><a href="/lessons">Music Lessons</a></li>
+    </ul>
+
+    <div class="sr-root">
+      <div class="lesson-form">
+        <header class="sr-header">
+          <!-- <div class="sr-header__logo"></div> -->
+        </header>
+        <div class="sr-payment-summary completed-view">
+            <h1>Your payment succeeded</h1>
+            <h4>
+              View CheckoutSession response:</a>
+            </h4>
+          </div>
+          <div class="sr-section completed-view">
+            <div class="eco-callout">
+              <pre>
+    
+              </pre>
+            </div>
+            <button onclick="window.location.href = '/concert';">Return to ticket purchase</button>
+          </div> 
+        </div> 
+        <div class="sr-content">
+        <div class="pasha-image-stack">
+          <!-- <img
+            src="img/banjo.jpeg"
+            width="275"
+            height="185"
+          /> -->
+          <img
+            src="img/drums2.jpeg"
+            width="275"
+            height="185"
+          />
+          <img
+            src="img/guitar.jpg"
+            width="275"
+            height="185"
+          />
+          <img
+            src="img/music-sheet2.jpeg"
+            width="275"
+            height="185"
+          />
+        </div>
+      </div>
+    </div>
+    <script>
+      var urlParams = new URLSearchParams(window.location.search);
+      var sessionId = urlParams.get("session_id")
+      if (sessionId) {
+        fetch("/checkout-session?sessionId=" + sessionId).then(function(result){
+          return result.json()
+        }).then(function(session){
+          var sessionJSON = JSON.stringify(session, null, 2);
+          document.querySelector("pre").textContent = sessionJSON;
+        }).catch(function(err){
+          console.log('Error when fetching Checkout session', err);
+        });
+      }
+    </script>
+  </body>
+</html>

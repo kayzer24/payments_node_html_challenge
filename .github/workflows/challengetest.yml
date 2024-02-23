@@ -1,0 +1,418 @@
+name: Challenge Test Workflow
+# Controls when the workflow will run
+on: 
+  pull_request:
+    paths-ignore:
+      - 'test/cypress/results/**'
+    types: [labeled, opened, synchronize, reopened]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs: 
+  setup:
+    if: ${{ (github.event_name == 'workflow_dispatch') || ((github.event_name == 'pull_request') && (github.event.action == 'opened')) || ((github.event_name == 'pull_request') && (github.event.action == 'synchronize')) || ((github.event_name == 'pull_request') && (github.event.action == 'reopened')) || ((github.event_name == 'pull_request') && (github.event.action == 'labeled') && (github.event.label.name == 'skip-tests')) }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        operating-system: ['ubuntu-latest']
+        php-versions: ['8.0.8']
+        phpunit-versions: ['latest']
+        include:
+          - operating-system: 'ubuntu-latest'
+            php-versions: '8.0.8'
+        node-version: [14.x]
+        ruby-version: [3.0.1]
+    env: 
+      working-directory: ./test
+      client-directory: ./client
+      repo-name: ${{ github.repository }}
+      stripe-key: ${{ secrets.STRIPE_SECRET_KEY }}
+      my-workspace: ${{ github.workspace }}/pullrequestref
+      start-sh-exists: true
+      debug-flag: false
+      skip-tests: false
+      has-smoke-failed: false
+
+    steps:
+      - name: Checkout Pull Request
+        uses: actions/checkout@v2
+        if: always()
+        with:
+          path: pullrequestref
+      
+      - name: Checkout Head Ref
+        uses: actions/checkout@v2
+        if: always()
+        with: 
+          ref: ${{ github.head_ref }}
+          path: headref
+
+      - name: Obtain a GitHub App Access Token
+        if: always()
+        run: |
+          TOKEN="$(npx obtain-github-app-installation-access-token ci ${{ secrets.WORKFLOW_TOKEN }})"
+          echo "::add-mask::$TOKEN"
+          echo "wf-github-token=$TOKEN" >> $GITHUB_ENV
+          echo "app_name=${{ secrets.APP_NAME }}" >> $GITHUB_ENV
+
+      - name: Check if Skip-tests label is applied
+        if: ${{ (github.event_name == 'pull_request') && (github.event.action == 'labeled') && (github.event.label.name == 'skip-tests') }}
+        run: |
+          echo "skip-tests=true" >> $GITHUB_ENV
+
+      ##START Node and React##
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        if: ${{ (contains(github.repository, 'node') || contains(github.repository, 'PHP') ) && (env.skip-tests == 'false') }}
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache-dependency-path: ${{ env.my-workspace }}/cache-dependency/package-lock.json
+
+      - name: Copy .env
+        if: ${{ contains(github.repository, 'node') && (env.skip-tests == 'false') }}
+        run: |
+          php -r "file_exists('.env') || copy('.env.example', '.env');"
+          sed -i.bak '1,4d' .env
+          sed -i.bak '1s/^/STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}\n/' .env
+          sed -i.bak '1s/^/STRIPE_PUBLISHABLE_KEY=${{ secrets.STRIPE_PUBLISHABLE_KEY }}\n/' .env
+        working-directory: ${{ env.my-workspace }}/code/server
+
+      - name: Check start.sh exists in Server Directory 
+        id: check_server_start_sh_file
+        if: ${{ (env.skip-tests == 'false') }}
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "${{ env.my-workspace }}/code/server/start.sh"
+
+      - name: Server Start.sh File exists
+        if: ${{ (steps.check_server_start_sh_file.outputs.files_exists == 'false') && (env.skip-tests == 'false') }}
+        # Only runs if all of the files exists
+        run: echo "start-sh-exists=false" >> $GITHUB_ENV
+
+      - name: Check start.sh exists in Client Directory 
+        id: check_client_start_sh_file
+        if: ${{ contains(github.repository, 'react') && (steps.check_server_start_sh_file.outputs.files_exists == 'true') && (env.skip-tests == 'false') }}
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "${{ env.my-workspace }}/code/client/start.sh"
+
+      - name: Client Start.sh File exists
+        if: ${{ (steps.check_client_start_sh_file.outputs.files_exists == 'false') && (env.skip-tests == 'false') }}
+        # Only runs if all of the files exists
+        run: echo "start-sh-exists=false" >> $GITHUB_ENV
+
+      - name: Install Node Server Dependencies
+        run: npm install
+        if: ${{ contains(github.repository, 'node') && (env.start-sh-exists == 'true') && (env.skip-tests == 'false') }}
+        working-directory: ${{ env.my-workspace }}/code/server
+      
+      - name: Clean Install React Client Dependancies
+        if: ${{ contains(github.repository, 'react') && (env.start-sh-exists == 'true') && (env.skip-tests == 'false') }}
+        run: | 
+          rm -rf node_modules
+          rm -f package-lock.json
+          npm install
+        working-directory: ${{ env.my-workspace }}/code/client      
+      ##END Node and React##
+
+      ##START Python ##
+      - name: Copy .env
+        if: ${{ contains(github.repository, 'python') && (env.start-sh-exists == 'true') && (env.skip-tests == 'false') }}
+        run: |
+          php -r "file_exists('.env') || copy('.env.example', '.env');"
+          sed -i.bak '1,4d' .env
+          sed -i.bak '1s/^/STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}\n/' .env
+          sed -i.bak '1s/^/STRIPE_PUBLISHABLE_KEY=${{ secrets.STRIPE_PUBLISHABLE_KEY }}\n/' .env
+        working-directory: ${{ env.my-workspace }}/code/server
+
+      - name: Install Python Server Dependencies
+        if: ${{ contains(github.repository, 'python') && (env.start-sh-exists == 'true') && (env.skip-tests == 'false') }}
+        run: pip install -r requirements.txt
+        working-directory: ${{ env.my-workspace }}/code/server
+      ##END Python ##
+
+      ##START PHP ##
+      - name: Copy .env for React
+        if: ${{ contains(github.repository, 'PHP') && contains(github.repository, 'react') && (env.start-sh-exists == 'true') && (env.skip-tests == 'false') }}
+        run: |
+          php -r "file_exists('.env') || copy('.env.example', '.env');"
+          sed -i.bak '1,4d' .env
+          sed -i.bak '1s/^/STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}\n/' .env
+          sed -i.bak '1s/^/STRIPE_PUBLISHABLE_KEY=${{ secrets.STRIPE_PUBLISHABLE_KEY }}\n/' .env
+        working-directory: ${{ env.my-workspace }}/code/server
+      
+      - name: Copy .env for HTML
+        if: ${{ contains(github.repository, 'PHP') && contains(github.repository, 'html') && (env.start-sh-exists == 'true') && (env.skip-tests == 'false') }}
+        run: |
+          php -r "file_exists('.env') || copy('.env.example', '.env');"
+          sed -i.bak '1,7d' .env
+          sed -i.bak '1s/^/STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}\n/' .env
+          sed -i.bak '1s/^/STRIPE_PUBLISHABLE_KEY=${{ secrets.STRIPE_PUBLISHABLE_KEY }}\n/' .env
+          sed -i.bak '1s/^/STATIC_DIR=public\n/' .env
+        working-directory: ${{ env.my-workspace }}/code/server
+
+      - name: Install PHP Server Dependencies
+        if: ${{ contains(github.repository, 'PHP') && (env.start-sh-exists == 'true') && (env.skip-tests == 'false') }}
+        run: composer update
+        working-directory: ${{ env.my-workspace }}/code/server
+      ##END PHP ##
+    
+      ##START Ruby ##
+      - name: Set up Ruby ${{ matrix.ruby-version }}
+        if: ${{ contains(github.repository, 'ruby') && (env.start-sh-exists == 'true') && (env.skip-tests == 'false') }}
+        uses: ruby/setup-ruby@477b21f02be01bcb8030d50f37cfec92bfa615b6
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+
+      - name: Copy .env
+        if: ${{ contains(github.repository, 'ruby') && (env.start-sh-exists == 'true') && (env.skip-tests == 'false') }}
+        run: |
+          php -r "file_exists('.env') || copy('.env.example', '.env');"
+          sed -i.bak '1,4d' .env
+          sed -i.bak '1s/^/STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}\n/' .env
+          sed -i.bak '1s/^/STRIPE_PUBLISHABLE_KEY=${{ secrets.STRIPE_PUBLISHABLE_KEY }}\n/' .env
+        working-directory: ${{ env.my-workspace }}/code/server
+
+      - name: Install Ruby Server Dependencies
+        if: ${{ contains(github.repository, 'ruby') && (env.start-sh-exists == 'true') && (env.skip-tests == 'false') }}
+        run: bundle install
+        working-directory: ${{ env.my-workspace }}/code/server
+      
+      - name: Install Ruby Server Dependencies
+        if: ${{ contains(github.repository, 'ruby') && (env.start-sh-exists == 'true') && (env.skip-tests == 'false') }}
+        run: |
+          gem install sinatra-contrib
+        working-directory: ${{ env.my-workspace }}/code/server
+      ##END Ruby ##
+    
+      ##START Install Test Dependencies ##
+      - name: Install Cypress Test Dependencies
+        run: |
+          npm install
+        if: ${{ always() && env.start-sh-exists == 'true' && (env.skip-tests == 'false') }}
+        working-directory: ${{ env.my-workspace }}/test
+      ##END Install Test Dependencies ##
+
+      ## START Server and Client ##
+      - name: Start Web Server From Server
+        run: sh ./start.sh
+        if: ${{ (contains(github.repository, 'node') || contains(github.repository, 'python') || contains(github.repository, 'PHP') || contains(github.repository, 'ruby'))  && (env.start-sh-exists == 'true') && (env.skip-tests == 'false') }}
+        working-directory: ${{ env.my-workspace }}/code/server
+      - name: Start Web Server From Client
+        run: sh ./start.sh
+        if: ${{ (contains(github.repository, 'react'))  && ( env.start-sh-exists == 'true') && (env.skip-tests == 'false') }}
+        working-directory: ${{ env.my-workspace }}/code/client     
+      ## END Server and Client ##
+
+      ## Set Port Number for Cypress to wait and run on
+      - name: Set Correct Port Number
+        if: ${{ env.start-sh-exists == 'true' && (env.skip-tests == 'false') }}
+        run: |
+          if ${{ contains(github.repository, 'react') }}
+          then
+              echo "PORT_NUMBER=3000" >> $GITHUB_ENV
+          else
+              echo "PORT_NUMBER=4242" >> $GITHUB_ENV
+          fi
+
+      ## Run Smoke Test ##
+      - name: Cypress Run Smoke Test Suite
+        id: smoke
+        uses: cypress-io/github-action@v2
+        if: ${{ env.start-sh-exists == 'true' && (env.skip-tests == 'false') }}
+        with:
+          browser: chrome
+          config: baseUrl=http://localhost:${{env.PORT_NUMBER}}
+          wait-on: 'http://localhost:${{env.PORT_NUMBER}}/'
+          working-directory: ${{env.my-workspace}}/test
+          spec: cypress/integration/smoke.js
+          quiet: true
+
+      ## Check if Smoke Failed and Add PR Comment
+      - name: Check for Failed Smoke
+        if: ${{ always() && env.start-sh-exists == 'true' && (env.skip-tests == 'false') && steps.smoke.outcome == 'failure'}}
+        run: |
+          echo "has-smoke-failed=true" >> $GITHUB_ENV
+      
+      - name: Add PR Comment on Smoke Failure
+        if: ${{ always() && env.start-sh-exists == 'true' && (env.skip-tests == 'false') && steps.smoke.outcome == 'failure'}}
+        uses: mshick/add-pr-comment@v1
+        env:
+          GITHUB_TOKEN: ${{ env.wf-github-token }}
+        with:
+          message: |
+            Test results for ${{github.workflow}} - #${{github.run_number}}
+            Commit Id: ${{ github.sha }}
+
+            ### Smoke Tests Failed
+
+            Before you push your changes to the branch, ensure that the application is running without any errors in your local machine.   
+          allow-repeats: true
+
+      ## Run Section Tests
+      - name: Checkout Status Branch
+        uses: actions/checkout@v2
+        if:  ${{ env.start-sh-exists == 'true' && env.has-smoke-failed == 'false' }}
+        with:
+          ref: progress
+          token: ${{ env.wf-github-token }}
+          path: statusref
+
+      - name: Parse Name of Test Spec to run
+        if:  ${{ env.start-sh-exists == 'true' && env.has-smoke-failed == 'false' && (env.skip-tests == 'false') }}
+        run: |
+          echo "SPEC_TO_BE_RUN=$(cat statusref/test/cypress/results/learner_challenge_test_status.txt)" >> $GITHUB_ENV
+
+      - name: Check if All Tests need to Run
+        if:  ${{ env.start-sh-exists == 'true' && env.has-smoke-failed == 'false' && (env.skip-tests == 'false') }}
+        run: |
+          section_number=$(($(jq '.sequences | to_entries | .[] | select(.value | contains("${{env.SPEC_TO_BE_RUN}}")) | .key' < statusref/test/cypress/results/rubric.json)+1))
+          num_specs=$(jq '.sequences | length' < statusref/test/cypress/results/rubric.json)
+          if [ "$section_number" -eq "$num_specs" ]
+          then
+              echo "SPEC_TO_BE_RUN=lessons_*.js" >> $GITHUB_ENV
+          fi       
+          rm -rf pullrequestref/test/cypress/results/stripechallengetestreport-individual.json
+          
+      - name: Cypress Run Section(s) Test Suite
+        uses: cypress-io/github-action@v2
+        if: ${{ env.start-sh-exists == 'true' && (env.skip-tests == 'false') && env.has-smoke-failed == 'false' }}
+        with:
+          browser: chrome
+          config: baseUrl=http://localhost:${{env.PORT_NUMBER}}
+          wait-on: 'http://localhost:${{env.PORT_NUMBER}}/'
+          working-directory: ${{env.my-workspace}}/test
+          spec: cypress/integration/${{env.SPEC_TO_BE_RUN}}
+          quiet: true
+
+      - name: Merge individual test results to single file
+        id: mergereports
+        if:  ${{ always() && env.start-sh-exists == 'true' && (env.skip-tests == 'false') && env.has-smoke-failed == 'false' }}
+        run: |
+          npx mochawesome-merge "stripechallengetestreport-individual*.json" > stripechallengetestreport.json
+          npx marge stripechallengetestreport.json
+        working-directory: ${{ env.my-workspace }}/test/cypress/results
+
+      - name: Generate Feedback Report
+        id: feedbackreport
+        if:  ${{ always() && env.start-sh-exists == 'true' && env.has-smoke-failed == 'false' }}
+        uses: stripe-certification/actions/.github/actions/generate-feedbackreport@main
+        with:
+          rubricfile: ${{ env.my-workspace }}/test/cypress/results/rubric.json
+          testresultfile: ${{ env.my-workspace }}/test/cypress/results/stripechallengetestreport.json
+          outputfolder: ${{env.my-workspace}}/test/cypress/results
+          currentlearnerchallengestatusdetails: statusref/test/cypress/results/learner_challenge_test_details.json
+          skiptestlabelapplied: ${{ env.skip-tests }}
+          
+      - name: Append Latest Status and Results
+        if:  ${{ always() && env.start-sh-exists == 'true' && env.has-smoke-failed == 'false' }}
+        run: |
+          echo ${{ steps.feedbackreport.outputs.learnerchallengestatus }} > statusref/test/cypress/results/learner_challenge_test_status.txt
+          echo "can-auto-merge=${{ steps.feedbackreport.outputs.canautomerge }}" >> $GITHUB_ENV
+          echo "challengecomplete=${{ steps.feedbackreport.outputs.challengecomplete }}" >> $GITHUB_ENV
+          jq -n '${{ steps.feedbackreport.outputs.learnerchallengestatusdetails }}' > statusref/test/cypress/results/learner_challenge_test_details.json
+
+      - name: Commit Latest Status and Results Files
+        uses: EndBug/add-and-commit@v7.2.0
+        if:  ${{ always() && env.start-sh-exists == 'true' && env.has-smoke-failed == 'false' }}
+        with:
+          add: 'learner_challenge_test_*.*'
+          author_name: ${{ secrets.APP_NAME }}
+          author_email: ${{ secrets.APP_EMAIL }}
+          committer_name: ${{ secrets.APP_NAME }}
+          committer_email: ${{ secrets.APP_EMAIL }}
+          message: 'Committing Test Results and Status for ${{github.workflow}} - #${{github.run_number}}'          
+          cwd: statusref/test/cypress/results
+          github_token: ${{ env.wf-github-token }}
+          branch: progress
+          pull_strategy: NO-PULL
+
+      - name: Add Artifacts
+        uses: actions/upload-artifact@v1
+        if:  ${{ always() && env.start-sh-exists == 'true' && (env.skip-tests == 'false') && env.has-smoke-failed == 'false' }}
+        with: 
+          name: cypress-screenshots
+          path: ${{env.my-workspace}}/test/cypress/results
+          
+      - name: Get Author of Last Commit
+        if:  ${{ always() && env.start-sh-exists == 'true' && env.has-smoke-failed == 'false' }}
+        run: |
+          last_commit_author=$( curl --location --request GET '${{ github.event.pull_request.commits_url }}' --header 'Authorization: Bearer ${{ env.wf-github-token }}' |  jq -r  '.[-1].commit.author.name' )
+          echo "last-commit-author=$last_commit_author" >> $GITHUB_ENV
+          
+      - name: Add PR Comment
+        if:  ${{ always() && (env.last-commit-author != env.app_name ) && (env.start-sh-exists == 'true') && (env.has-smoke-failed == 'false') }}
+        uses: mshick/add-pr-comment@v1
+        env:
+          GITHUB_TOKEN: ${{ env.wf-github-token }}
+        with:
+          message: |
+            Test results for ${{github.workflow}} - #${{github.run_number}}
+            Commit Id: ${{ github.sha }}
+            ${{ steps.feedbackreport.outputs.comment }}
+          allow-repeats: true 
+
+      - name: Add Auto Merge Label
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ always() && env.can-auto-merge == 'true' && env.has-smoke-failed == 'false' }}
+        with:
+          labels: automerge
+          github_token: ${{ env.wf-github-token }}
+
+      - name: Merge PR
+        id: pr_merge
+        if: ${{ always() && env.can-auto-merge == 'true' && env.has-smoke-failed == 'false' }}
+        uses: "pascalgn/automerge-action@v0.15.2"
+        env:
+          GITHUB_TOKEN: ${{ env.wf-github-token }}
+
+      - name: Get Next Section Name and Number
+        if: ${{ always() && env.can-auto-merge == 'true' && (steps.pr_merge.outcome == 'success') &&  (env.challengecomplete == 'false') && env.has-smoke-failed == 'false' }}
+        run: |
+          next_section_name=$(echo "${{ steps.feedbackreport.outputs.learnerchallengestatus }}" | cut -d "." -f 1)
+          echo "next-section-name=$next_section_name" >> $GITHUB_ENV
+          next_section_number=$(($(jq '.sequences | to_entries | .[] | select(.value | contains("${{ steps.feedbackreport.outputs.learnerchallengestatus }}")) | .key' < statusref/test/cypress/results/rubric.json)+1))
+          echo "next-section-number=$next_section_number" >> $GITHUB_ENV
+
+      - name: Checkout Dev Branch
+        uses: actions/checkout@v2
+        if: ${{ always() && env.can-auto-merge == 'true' && (steps.pr_merge.outcome == 'success') &&  (env.challengecomplete == 'false') && env.has-smoke-failed == 'false' }}
+        with:
+          ref: dev
+          token: ${{ env.wf-github-token }}
+          path: dev
+      
+      - name: Create New PR
+        if: ${{ always() && env.can-auto-merge == 'true' && (steps.pr_merge.outcome == 'success') && (env.challengecomplete == 'false') && env.has-smoke-failed == 'false' }}
+        run: |
+          echo ${{ env.wf-github-token }} > .githubtoken
+          gh auth login --with-token < .githubtoken
+          rm .githubtoken
+          echo -en "\n - _Milestone ${{ env.next-section-number }} Started On $(date)_ " >> README.md
+          git config user.name "${{ secrets.APP_NAME }}"
+          git config user.email "${{ secrets.APP_EMAIL }}"
+          git add .
+          git commit -m "Milestone ${{ env.next-section-number }}"
+          git push --set-upstream origin dev
+          gh pr create --base master --head dev --title "Milestone ${{ env.next-section-number }}" -F docs/README_${{ env.next-section-name }}.md
+        working-directory: ${{ github.workspace }}/dev
+
+      - name: Slack notification
+        uses: stripe-certification/actions/.github/actions/completion-notification@fix-action-share
+        if: ${{ always() && env.challengecomplete == 'true' }}
+        with:
+           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+           repo-name: ${{ github.event.repository.name }}
+           user-name: ${{ github.actor }}
+      
+      - name: Add Issue to Submit MindTickle Mission
+        if: ${{ always() && env.challengecomplete == 'true' }}
+        run: |
+          curl --location --request POST 'https://api.github.com/repos/stripe-certification/${{ github.event.repository.name }}/issues' \
+          --header 'Authorization: Bearer ${{ env.wf-github-token }}' \
+          --header 'Content-Type: application/json' \
+          --data-raw '{
+              "title": "Make sure to submit your MindTickle Mission!",
+              "body": "_You have to submit the mission in MindTickle before we can approve you! Login here:_ https://stripepartners.mindtickle.com/login \n\n_Also, if you have any feedback on the challenge, we would love to hear it!  Please share here: https://forms.gle/UFpUyDCr8ubw8Ukp6_"
+          }'

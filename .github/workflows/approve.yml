@@ -1,0 +1,17 @@
+# This workflow will triage pull requests and auto approve them
+
+on: 
+  pull_request_review:
+    types: [submitted]
+    branches: ['master']
+
+jobs:
+  approve:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Auto Approve
+      if: github.event.review.state == 'approved' && github.event.pull_request.base.ref == 'master'
+      uses: hmarr/auto-approve-action@v2.0.0
+      with:
+        # The GITHUB_TOKEN secret
+        github-token: "${{ secrets.GITHUB_TOKEN }}"

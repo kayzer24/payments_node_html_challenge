@@ -1,0 +1,80 @@
+{
+    "visa": {
+        "brand": "Visa",
+        "credit": {
+            "valid": {
+                "cardNumber": "4242424242424242",
+                "cvv": 123,
+                "threeDS": {
+                    "cardNumber": "4000002760003184",
+                    "cvv": 123
+                }
+            },
+            "invalid": {
+                "card_declined": {
+                    "cardNumber": "4000000000000002",
+                    "cvv": 123
+                },
+                "insufficient_funds": {
+                    "cardNumber": "4000000000009995",
+                    "cvv": 123
+                },
+                "lost_card" : {
+                    "cardNumber": "4000000000009987",
+                    "cvv": 123
+                },
+                "threeDS": {
+                    "insufficient_funds": {
+                        "cardNumber": "4000008260003178",
+                        "cvv": 123
+                    }
+                }
+            }
+        },
+        "debit": {
+            "valid": {
+                "cardNumber": "4000056655665556",
+                "cvv": 123
+            }
+        }
+    },
+    "mastercard": {
+        "brand": "Mastercard",
+        "credit": {
+            "valid": {
+                "cardNumber": "5555555555554444",
+                "cvv": 123
+            },
+            "invalid": {
+            }
+        },
+        "debit": {
+            "valid": {
+                "cardNumber": "5200828282828210",
+                "cvv": 123
+            }
+        }
+    },
+    "amex": {
+        "brand": "AMEX",
+        "credit": {
+            "valid": {
+                "cardNumber": "378282246310005",
+                "cvv": 1234
+            },
+            "invalid": {
+            }
+        }
+    },
+    "discover": {
+        "brand": "Discover",
+        "credit": {
+            "valid": {
+                "cardNumber": "6011111111111117",
+                "cvv": 123
+            },
+            "invalid": {
+            }
+        }
+    }
+}

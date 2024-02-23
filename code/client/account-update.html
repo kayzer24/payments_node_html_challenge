@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Townsend Street Music Shop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="update your account" />
+    <link rel="stylesheet" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" href="/assets/css/account-update.css" />
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="/assets/js/common.js" defer></script>
+    <script src="/assets/js/account-update.js" defer></script>
+  </head>
+  <body>
+    <div class="sr-body">
+      <div class="sr-context">
+        <ul style="padding-top: 4vh;" class="eco-navigation">
+          <li style="margin-top: auto; margin-bottom: auto; height: 38px;">
+            <img src="/assets/img/store_logo.svg" />
+          </li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/concert">Concert Tickets</a></li>
+          <li><a href="/videos">Video Courses</a></li>
+          <li><a href="/lessons">Lessons Courses</a></li>
+        </ul>
+        <div class="sr-title">
+          <h2>Account details</h2>
+        </div>
+        <div class="eco-items" id="account-information" data-payment-method="">
+          <h3>Current Account Information</h3>
+          <h4>We have the following card information on file for you:</h4>
+          <p class="eco-banner-text">
+            <strong>Billing Email:&nbsp;&nbsp;</strong><span id="billing-email"></span><br />
+            <strong>Card Exp Month:&nbsp;&nbsp;</strong><span id="card-exp-month"></span><br />
+            <strong>Card Exp Year:&nbsp;&nbsp;</strong><span id="card-exp-year"></span><br />
+            <strong>Card last 4:&nbsp;&nbsp;</strong><span id="card-last4"></span><br />
+          </p>
+        </div>
+      </div>
+      <div class="sr-form-container">
+        <div class="lesson-form">
+          <div class="sr-payment-form payment-view">
+            <h3>Update your Payment details</h3>
+            <p>
+              Fill out the form below if you'd like to us to use a new card.
+            </p>
+            <div class="sr-form-row">
+              <div class="sr-combo-inputs">
+                <input type="text" id="customer_id" value="" hidden>
+                <div class="sr-combo-inputs-row">
+                  <input
+                    type="text"
+                    id="name"
+                    placeholder="Name"
+                    autocomplete="cardholder"
+                    class="sr-input"
+                    value=""
+                  />
+                </div>
+                <div class="sr-combo-inputs-row">
+                  <input
+                    type="text"
+                    id="email"
+                    placeholder="Email"
+                    autocomplete="cardholder"
+                    value=""
+                  />
+                </div>
+                <div class="sr-combo-inputs-row">
+                  <!-- use this div for your card element -->
+                  <div class="sr-input sr-card-element"></div>
+                </div>
+              </div>
+              <div class="sr-field-error" id="card-errors" role="alert"></div>
+              <div
+                class="sr-field-error"
+                id="customer-exists-error"
+                role="alert"
+                hidden
+              >
+                <span id="customer-exists-message"></span>
+              </div>
+            </div>
+            <button id="submit" disabled>
+              <div class="spinner hidden" id="spinner"></div>
+              <span id="button-text">Register</span>
+            </button>
+            <div class="sr-legal-text">
+              Your card will not be charged. By registering, you hold a session
+              slot which we will confirm within 24 hrs.
+            </div>
+          </div>
+
+          <div class="sr-section hidden completed-view">
+            <h3 id="signup-status">Payment Information updated</h3>
+            <button onclick="window.location.href='/lesson-signup'">
+              Sign up for lessons under a different email address
+            </button>
+          </div>
+        </div>
+        <!-- end of main -->
+      </div>
+    </div>
+  </body>
+</html>

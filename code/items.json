@@ -1,0 +1,44 @@
+[
+  {
+      "itemId": "piano",
+      "desc": "Play by ear. Ever wish you could just hear a song and then play it for your friends?",
+      "price": 2500,
+      "title": "Piano",
+      "img": "./assets/img/piano_hands.png"
+  },
+  {
+      "itemId": "guitar",
+      "desc": "Intro to Rockabilly. Early rock and roll songs are a fun way to get an introduction to the guitar.",
+      "price": 1500,
+      "title": "Guitar",
+      "img": "./assets/img/guitar_item.png"
+  },
+  {
+      "itemId": "drums",
+      "desc": "Start your journey. From easy fills to advanced topics like metric modulation.",
+      "price": 1000,
+      "title": "Drums",
+      "img": "./assets/img/drums_item.png"
+  },
+  {
+      "itemId": "bass",
+      "desc": "Learn to play the bass in 10 easy lessons.",
+      "price": 3000,
+      "title": "Bass",
+      "img": "./assets/img/bass_item.png"
+  },
+  {
+      "itemId": "g2",
+      "desc": "From classic music to indie. This is the ultimate music theory course that you will need.",
+      "price": 3500,
+      "title": "Music Theory",
+      "img": "./assets/img/g5_item.png"
+  },
+  {
+      "itemId": "voice",
+      "desc": "Don’t be a karaoke singer anymore. With this course you will be the next frontman of a band.",
+      "price": 1500,
+      "title": "Voice",
+      "img": "./assets/img/voice_item.png"
+  } 
+]

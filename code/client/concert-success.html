@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Stripe Checkout Sample</title>
+    <meta name="description" content="Stripe Checkout" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" href="assets/css/checkout.css" />
+  </head>
+
+  <body>
+    <ul class="eco-navigation">
+      <li style="margin-top: auto; margin-bottom: auto; height: 38px;">
+        <img src="/assets/img/store_logo.svg" />
+      </li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/concert">Concert Tickets</a></li>
+      <li><a href="/videos">Video Courses</a></li>
+      <li><a href="/lessons">Lessons Courses</a></li>
+    </ul>
+
+    <div class="sr-root">
+      <div class="lesson-form">
+        <header class="sr-header">
+          <!-- <div class="sr-header__logo"></div> -->
+        </header>
+        <div class="sr-payment-summary completed-view">
+          <img
+            style="display: inline; vertical-align: middle;"
+            src="/assets/img/green_check_icon.svg"
+          />
+          <h1 class="sr-success-header">Your payment succeeded</h1>
+        </div>
+        <div class="sr-section completed-view">
+          <div class="eco-callout">
+            <pre></pre>
+          </div>
+          <button onclick="window.location.href = '/concert';">
+            Return to ticket purchase
+          </button>
+        </div>
+      </div>
+      <div class="sr-content">
+        <div class="pasha-image-stack">
+        </div>
+      </div>
+    </div>
+    <script>
+      var urlParams = new URLSearchParams(window.location.search);
+      var sessionId = urlParams.get("session_id");
+      if (sessionId) {
+        fetch("/checkout-session?sessionId=" + sessionId)
+          .then(function (result) {
+            return result.json();
+          })
+          .then(function (session) {
+            var sessionJSON = JSON.stringify(session, null, 2);
+            document.querySelector("pre").textContent = sessionJSON;
+          })
+          .catch(function (err) {
+            console.log("Error when fetching Checkout session", err);
+          });
+      }
+    </script>
+  </body>
+</html>
